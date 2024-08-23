@@ -1,0 +1,4 @@
+ansible
+antsibull-docs
+gs_api_client
+pre-commit

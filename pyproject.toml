@@ -1,0 +1,15 @@
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+# ignore = [
+#     "F841", # unused variable
+# ]
+select = [
+    # "E9", # syntax
+    "I", # isort
+    "UP", # pyupgrade
+    # TODO
+    # "F", # flake8
+]
