@@ -4,6 +4,8 @@
 
 An ansible collection for gridscale.
 
+Currently only an inventory plugin is implemented.
+
 Documentation: https://bitnik.github.io/gridscale-ansible-collection/
 
 ## Python Version Requirement
