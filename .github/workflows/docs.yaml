@@ -37,8 +37,8 @@ jobs:
           pip install antsibull-docs sphinx_ansible_theme
           mkdir built-docs
           antsibull-docs sphinx-init --use-current --squash-hierarchy bitnik.gridscale --dest-dir built-docs
-          cp .github/workflows/docs-push-files/conf.py built-docs/
-          cp .github/workflows/docs-push-files/antsibull-docs.cfg built-docs/
+          cp .github/workflows/docs/conf.py built-docs/
+          cp .github/workflows/docs/antsibull-docs.cfg built-docs/
           cat built-docs/antsibull-docs.cfg
           cd built-docs
           python -m pip install -r requirements.txt
