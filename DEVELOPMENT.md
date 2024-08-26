@@ -27,21 +27,21 @@ https://ansible.readthedocs.io/projects/antsibull-docs/collection-docs/#building
 
 ```sh
 # Create a subdirectory which should contain the docsite:
-$ mkdir built-docs
+mkdir built-docs
 
 # Create a Sphinx project for the collection:
-$ antsibull-docs sphinx-init --use-current --squash-hierarchy bitnik.gridscale --dest-dir built-docs
+antsibull-docs sphinx-init --use-current --squash-hierarchy bitnik.gridscale --dest-dir built-docs
 
 # Install requirements for the docsite build
 # (if you don't have an active venv, create one!)
-$ cd built-docs
-$ python -m pip install -r requirements.txt
+cd built-docs
+python -m pip install -r requirements.txt
 
 # Build the docsite by:
 #  1. running antsibull-docs to create the RST files for the collection,
 #  2. running Sphinx to compile everything to HTML
-$ ./build.sh
+./build.sh
 
 # Open the built HTML docsite in a browser like Firefox:
-$ firefox build/html/index.html
+firefox build/html/index.html
 ```

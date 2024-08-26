@@ -93,6 +93,8 @@ options:
 
 EXAMPLES = """
 TODO
+
+test
 """
 
 from importlib.metadata import PackageNotFoundError, version
