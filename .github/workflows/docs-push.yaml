@@ -25,15 +25,15 @@ jobs:
     uses: ansible-community/github-docs-build/.github/workflows/_shared-docs-build-push.yml@main
     with:
       collection-name: bitnik.gridscale
-      # init-lenient: false
+      init-lenient: false
       init-fail-on-error: true
       squash-hierarchy: true
-      # init-project: Community.Crypto Collection
-      # init-copyright: Community.Crypto Contributors
-      # init-title: Community.Crypto Collection Documentation
-      # init-html-short-title: Community.Crypto Collection Docs
-      # init-extra-html-theme-options: |
-      #   documentation_home_url=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/branch/main/
+      init-project: bitnik.gridscale Collection
+      init-copyright: bitnik.gridscale Contributors
+      init-title: bitnik.gridscale Collection Documentation
+      init-html-short-title: bitnik.gridscale Collection Docs
+      init-extra-html-theme-options: |
+        documentation_home_url=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/branch/main/
 
   publish-docs-gh-pages:
     # for now we won't run this on forks
