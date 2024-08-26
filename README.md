@@ -1,5 +1,7 @@
 # Ansible Collection for gridscale
 
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/bitnik/gridscale-ansible-collection/main.svg)](https://results.pre-commit.ci/latest/github/bitnik/gridscale-ansible-collection/main)
+
 An ansible collection for gridscale.
 
 Documentation: https://bitnik.github.io/gridscale-ansible-collection/
