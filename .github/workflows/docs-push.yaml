@@ -38,10 +38,10 @@ jobs:
   publish-docs-gh-pages:
     # for now we won't run this on forks
     if: github.repository == 'bitnik/gridscale-ansible-collection'
-    # permissions:
-    #   contents: write
-    #   pages: write
-    #   id-token: write
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
     needs: [build-docs]
     name: Publish Ansible Docs
     uses: ansible-community/github-docs-build/.github/workflows/_shared-docs-build-publish-gh-pages.yml@main
