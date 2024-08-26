@@ -24,7 +24,7 @@ highlight_language = "YAML+Jinja"
 # https://github.com/ansible-community/sphinx_ansible_theme/blob/main/docs/conf.py
 html_theme = "sphinx_ansible_theme"
 html_theme_options = {
-    "documentation_home_url": "https://bitnik.github.io/gridscale-ansible-collection/branch/main/",
+    "documentation_home_url": "https://bitnik.github.io/gridscale-ansible-collection/",
     "topbar_links": {},
 }
 html_show_sphinx = False

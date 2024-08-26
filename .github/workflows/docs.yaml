@@ -58,6 +58,8 @@ jobs:
       pages: write      # to deploy to Pages
       id-token: write   # to verify the deployment originates from an appropriate source
     # Deploy to the github-pages environment
+    # We don't push to gh-pages branch
+    # In Pages settings "Source" must be set to "GitHub Actions"
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

@@ -163,3 +163,4 @@ cython_debug/
 
 gs_inventory.yaml
 built-docs/
+tests

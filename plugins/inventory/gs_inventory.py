@@ -92,9 +92,79 @@ options:
 """
 
 EXAMPLES = """
-TODO
+# 'GRIDSCALE_API_TOKEN' and 'GRIDSCALE_USER_UUID' set as env vars
+plugin: bitnik.gridscale.gs_inventory
 
-test
+---
+plugin: bitnik.gridscale.gs_inventory
+api_token: "{{ _vault_gridscale_api_token }}"
+user_uuid: "{{ _vault_gridscale_user_uuid }}"
+
+main_group: gridscale
+
+# Filter with location and status
+locations_filter:
+- "de/fra"
+status_filter:
+- "active"
+
+---
+plugin: bitnik.gridscale.gs_inventory
+
+# Generate groups based on hostname
+groups:
+  # k8s: "'k8s' in hostname"
+  cp: "'master' in hostname"
+  node: "'master' not in hostname and 'node' in hostname"
+
+# Generate groups based on "location" host var
+keyed_groups:
+- key: location
+  separator: ""  # Default is "_".
+
+# Create new vars based on "location" host var
+compose:
+  location_country: location.split("/")[0]
+  location_iata: location.split("/")[-1]
+
+# Use only these vars in inventory
+host_vars_filter:
+  - ansible_host
+  - location
+
+---
+plugin: bitnik.gridscale.gs_inventory
+
+# Generate groups based on hostname
+groups:
+  cp: "'master' in hostname"
+  node: "'master' not in hostname and 'node' in hostname"
+
+# Filter out everything except ones in "cp" group
+groups_filter:
+- "cp"
+
+---
+plugin: bitnik.gridscale.gs_inventory
+
+main_group: gridscale
+
+hostname_template: "example-{{ location.replace('/', '-') }}-{{ hostname }}"
+hostvars_prefix: "prefix_"
+hostvars_suffix: "_suffix"
+
+groups:
+  cp: "'master' in prefix_hostname_suffix"
+  node: "'master' not in prefix_hostname_suffix and 'node' in prefix_hostname_suffix"
+
+keyed_groups:
+- key: prefix_location_suffix
+  separator: ""
+
+host_vars_filter:
+  - ansible_host
+  - prefix_location_suffix
+  - prefix_hostname_suffix
 """
 
 from importlib.metadata import PackageNotFoundError, version
@@ -264,6 +334,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
                     }
                 )
 
+            hostname = host_vars["hostname"]
             # Update host vars with given prefix and suffix
             if hostvars_prefix or hostvars_suffix:
                 for k in list(host_vars.keys()):
@@ -272,24 +343,20 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
 
             # Add host
             if main_group:
-                self.inventory.add_host(host_vars["hostname"], group=main_group)
+                self.inventory.add_host(hostname, group=main_group)
             else:
-                self.inventory.add_host(host_vars["hostname"], group="all")
+                self.inventory.add_host(hostname, group="all")
             # Add host variables
             for var_name, var_value in host_vars.items():
                 # if not host_vars_filter or (host_vars_filter and var_name in host_vars_filter):
                 if (host_vars_filter := self.get_option("host_vars_filter")) and (var_name in host_vars_filter):
-                    self.inventory.set_variable(host_vars["hostname"], var_name, var_value)
+                    self.inventory.set_variable(hostname, var_name, var_value)
 
             # Add variables created by the user's Jinja2 expressions to the host
-            self._set_composite_vars(self.get_option("compose"), host_vars, host_vars["hostname"], strict=strict)
+            self._set_composite_vars(self.get_option("compose"), host_vars, hostname, strict=strict)
             # Create user-defined groups using variables and Jinja2 conditionals
-            self._add_host_to_composed_groups(
-                self.get_option("groups"), host_vars, host_vars["hostname"], strict=strict
-            )
-            self._add_host_to_keyed_groups(
-                self.get_option("keyed_groups"), host_vars, host_vars["hostname"], strict=strict
-            )
+            self._add_host_to_composed_groups(self.get_option("groups"), host_vars, hostname, strict=strict)
+            self._add_host_to_keyed_groups(self.get_option("keyed_groups"), host_vars, hostname, strict=strict)
 
         # Filter out all hosts that is not in any group defined in groups_filter.
         if groups_filter := self.get_option("groups_filter"):

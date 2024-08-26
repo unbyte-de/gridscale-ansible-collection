@@ -2,6 +2,8 @@
 
 An ansible collection for gridscale.
 
+Documentation: https://bitnik.github.io/gridscale-ansible-collection/
+
 ## Python Version Requirement
 
 This collection requires python version >= 3.12.
