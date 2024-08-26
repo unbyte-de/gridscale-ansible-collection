@@ -9,13 +9,15 @@ on:
 
 jobs:
   sanity-test:
-    name: Build docs
+    name: Run sanity test
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          path: ansible_collections/bitnik/gridscale
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -24,4 +26,5 @@ jobs:
         shell: bash
         run: |
           pip install ansible
+          cd ansible_collections/bitnik/gridscale
           ansible-test sanity -v
