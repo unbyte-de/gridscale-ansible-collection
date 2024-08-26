@@ -27,8 +27,9 @@ options:
     required: true
     choices: [gs_inventory, bitnik.gridscale.gs_inventory]
   api_token:
-    description:
-      - The token for gridscale API.
+    description: |
+      The token for gridscale API.
+      This token is project specific. So we can only get servers per project.
     type: str
     required: true
     aliases: [token]
