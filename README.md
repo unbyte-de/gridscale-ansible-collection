@@ -18,23 +18,3 @@ collections:
     type: git
     version: 0.1.0
 ```
-
-## Development
-
-Install pre-commit.
-
-```sh
-# Install the collection from local.
-ansible-galaxy collection install ../ --force
-
-# Run the inventory plugin with example configuration.
-ansible-inventory -i gs_inventory.yaml --list --yaml
-
-# View the inventory docu in terminal
-ansible-doc -t inventory bitnik.gridscale.gs_inventory
-
-# Linting and tests
-pre-commit run --all-files
-# ansible-test sanity --docker default -v
-ansible-test sanity -v
-```
