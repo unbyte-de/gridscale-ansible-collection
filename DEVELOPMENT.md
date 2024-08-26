@@ -5,6 +5,9 @@
 * https://docs.ansible.com/ansible/latest/dev_guide/developing_collections.html
 
 ```sh
+# Install dependencies
+pip install -r requirements_dev.txt
+
 # Install the collection from local.
 ansible-galaxy collection install ../ --force
 
