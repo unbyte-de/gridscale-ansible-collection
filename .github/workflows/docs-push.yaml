@@ -48,5 +48,6 @@ jobs:
     with:
       artifact-name: ${{ needs.build-docs.outputs.artifact-name }}
       publish-gh-pages-branch: true
+      environment: github-pages
     secrets:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
