@@ -163,5 +163,5 @@ cython_debug/
 
 gs_inventory.yaml
 built-docs/
-tests
+tests/output/
 playbook.yaml

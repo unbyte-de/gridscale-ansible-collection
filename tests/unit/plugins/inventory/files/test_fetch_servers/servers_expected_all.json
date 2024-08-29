@@ -1,0 +1,119 @@
+[
+  {
+    "labels": [
+      "test-label-d03cb21f12ee",
+      "another-label-d03cb21f12ee"
+    ],
+    "location_name": "de/fra",
+    "location_uuid": "7f5016dd-d1b2-4db7-bb3c-35ab5bb63357",
+    "name": "k8s-dev-master-0",
+    "location_iata": "fra",
+    "location_country": "de",
+    "object_uuid": "b9abb4ba-a1ea-4eba-a8ed-d03cb21f12ee",
+    "status": "active",
+    "relations": {
+      "storages": [
+        {
+          "object_uuid": "272778aa-2f0c-4e26-82fc-dddb1928590b"
+        },
+        {
+          "object_uuid": "04965abd-574b-4a78-8ee6-171411b78c7b"
+        }
+      ],
+      "networks": [
+        {
+          "object_uuid": "26900fa3-d219-4b75-a6a9-196bd28d7607"
+        },
+        {
+          "object_uuid": "18328c5d-b445-4a51-8f40-01c6d5ded04e"
+        }
+      ],
+      "public_ips": [
+        {
+          "create_time": "2023-01-02T08:43:33Z",
+          "object_uuid": "326ebe35-4dc6-46ba-932e-44ded4efa27c",
+          "ip": "185.102.11.11",
+          "family": 4,
+          "prefix": "185.102.11.11/32"
+        }
+      ]
+    }
+  },
+  {
+    "labels": [
+      "test-label-d332d25d889e",
+      "another-label-d332d25d889e"
+    ],
+    "location_name": "de/ha",
+    "location_uuid": "7f5016dd-d1b2-4db7-bb3c-35ab5bb63358",
+    "name": "k8s-dev-node-pool0-0",
+    "location_iata": "ha",
+    "location_country": "de",
+    "object_uuid": "0b9fe106-1598-4afe-b65e-d332d25d889e",
+    "status": "active",
+    "relations": {
+      "storages": [
+        {
+          "object_uuid": "d149e823-4ebc-4d85-9e5b-621f84e50e15"
+        }
+      ],
+      "networks": [
+        {
+          "object_uuid": "26900fa3-d219-4b75-a6a9-196bd28d7607"
+        },
+        {
+          "object_uuid": "18328c5d-b445-4a51-8f40-01c6d5ded04e"
+        }
+      ],
+      "public_ips": [
+        {
+          "create_time": "2023-01-02T08:54:38Z",
+          "object_uuid": "f137f19b-c631-47af-81e4-0bb50aa81666",
+          "ip": "185.102.11.22",
+          "family": 4,
+          "prefix": "185.102.11.22/32"
+        }
+      ]
+    }
+  },
+  {
+    "labels": [
+      "test-label-2e96397bea9c",
+      "another-label-2e96397bea9c"
+    ],
+    "location_name": "de/fra",
+    "location_uuid": "7f5016dd-d1b2-4db7-bb3c-35ab5bb63357",
+    "name": "k8s-dev-node-pool0-1",
+    "location_iata": "fra",
+    "location_country": "de",
+    "object_uuid": "c944e404-bfb3-42df-b2e1-2e96397bea9c",
+    "status": "paused",
+    "relations": {
+      "storages": [
+        {
+          "object_uuid": "e41cba2d-1119-4829-9991-ea300082d79f"
+        },
+        {
+          "object_uuid": "668c068a-3575-4608-ae78-5588b715f906"
+        }
+      ],
+      "networks": [
+        {
+          "object_uuid": "26900fa3-d219-4b75-a6a9-196bd28d7607"
+        },
+        {
+          "object_uuid": "18328c5d-b445-4a51-8f40-01c6d5ded04e"
+        }
+      ],
+      "public_ips": [
+        {
+          "create_time": "2023-01-02T09:01:09Z",
+          "object_uuid": "e41cba2d-1119-4829-9991-ea300082d79f",
+          "ip": "185.102.11.33",
+          "family": 4,
+          "prefix": "185.102.11.33/32"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,115 @@
+{
+    "groups": {
+        "all": {
+            "depth": 0,
+            "hosts": [],
+            "name": "all",
+            "parent_groups": [],
+            "vars": {}
+        },
+        "cp": {
+            "depth": 0,
+            "hosts": [
+                "k8s-dev-master-0"
+            ],
+            "name": "cp",
+            "parent_groups": [],
+            "vars": {}
+        },
+        "gridscale": {
+            "depth": 0,
+            "hosts": [
+                "k8s-dev-master-0",
+                "k8s-dev-node-pool0-0",
+                "k8s-dev-node-pool0-1"
+            ],
+            "name": "gridscale",
+            "parent_groups": [],
+            "vars": {}
+        },
+        "ungrouped": {
+            "depth": 1,
+            "hosts": [],
+            "name": "ungrouped",
+            "parent_groups": [
+                "all"
+            ],
+            "vars": {}
+        }
+    },
+    "hosts": {
+        "k8s-dev-master-0": {
+            "address": "k8s-dev-master-0",
+            "groups": [
+                "gridscale",
+                "cp"
+            ],
+            "implicit": false,
+            "name": "k8s-dev-master-0",
+            "vars": {
+                "ansible_host": "185.102.11.11",
+                "hostname": "k8s-dev-master-0",
+                "inventory_dir": null,
+                "inventory_file": null,
+                "labels": [
+                    "test-label-d03cb21f12ee",
+                    "another-label-d03cb21f12ee"
+                ],
+                "location": "de/fra",
+                "public_ips": [
+                    "185.102.11.11"
+                ],
+                "status": "active",
+                "uuid": "b9abb4ba-a1ea-4eba-a8ed-d03cb21f12ee"
+            }
+        },
+        "k8s-dev-node-pool0-0": {
+            "address": "k8s-dev-node-pool0-0",
+            "groups": [
+                "gridscale"
+            ],
+            "implicit": false,
+            "name": "k8s-dev-node-pool0-0",
+            "vars": {
+                "ansible_host": "185.102.11.22",
+                "hostname": "k8s-dev-node-pool0-0",
+                "inventory_dir": null,
+                "inventory_file": null,
+                "labels": [
+                    "test-label-d332d25d889e",
+                    "another-label-d332d25d889e"
+                ],
+                "location": "de/ha",
+                "public_ips": [
+                    "185.102.11.22"
+                ],
+                "status": "active",
+                "uuid": "0b9fe106-1598-4afe-b65e-d332d25d889e"
+            }
+        },
+        "k8s-dev-node-pool0-1": {
+            "address": "k8s-dev-node-pool0-1",
+            "groups": [
+                "gridscale"
+            ],
+            "implicit": false,
+            "name": "k8s-dev-node-pool0-1",
+            "vars": {
+                "ansible_host": "185.102.11.33",
+                "hostname": "k8s-dev-node-pool0-1",
+                "inventory_dir": null,
+                "inventory_file": null,
+                "labels": [
+                    "test-label-2e96397bea9c",
+                    "another-label-2e96397bea9c"
+                ],
+                "location": "de/fra",
+                "public_ips": [
+                    "185.102.11.33"
+                ],
+                "status": "paused",
+                "uuid": "c944e404-bfb3-42df-b2e1-2e96397bea9c"
+            }
+        }
+    }
+}

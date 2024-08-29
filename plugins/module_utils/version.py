@@ -1,4 +1,8 @@
 def compare_version(v1: str, v2: str) -> bool:
+    if isinstance(v1, str) is False:
+        raise ValueError(f"v1 must be a string, not a {type(v1)}.")
+    elif isinstance(v2, str) is False:
+        raise ValueError(f"v1 must be a string, not a {type(v2)}.")
     # convert versions into lists
     # compare only first 3 digits
     # if version has digits less than 3, fill with 0

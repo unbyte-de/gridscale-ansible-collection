@@ -26,9 +26,16 @@ Install [pre-commit](https://pre-commit.com/).
 ```sh
 pre-commit run --all-files
 # ansible-test sanity --docker default -v
-ansible-test sanity -v
+ansible-test sanity --docker -v --python 3.12
 # https://ansible.readthedocs.io/projects/antsibull-docs/collection-docs/#linting-collection-docs
 # antsibull-docs lint-collection-docs --plugin-docs .
+```
+
+## Tests
+
+```sh
+ansible-test units tests/unit/plugins/ --docker --python 3.12
+# ansible-test units tests/unit/plugins/module_utils/test_version.py --docker --python 3.12
 ```
 
 ## Documentation
