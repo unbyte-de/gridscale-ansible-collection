@@ -182,7 +182,7 @@ from ..module_utils.version import compare_version
 try:
     from gs_api_client import Configuration, SyncGridscaleApiClient
 except ImportError as e:
-    # Added this to satisfy `ansible-test sanit`.
+    # Added this to satisfy `ansible-test sanity`.
     # This is hanled better in `InventoryModule._check_required method`.
     pass
 
@@ -216,7 +216,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
             else:
                 break
 
-    def _get_client(self):
+    def _get_gridscale_client(self):
         # Initiate the configuration
         config = Configuration()
         config.api_key["X-Auth-Token"] = self.get_option("api_token")
@@ -228,7 +228,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
         return api_client
 
     def _configure_gridscale_client(self) -> None:
-        self.client = self._get_client()
+        self.client = self._get_gridscale_client()
         # Ensure credentials are valid.
         try:
             self._servers = self.client.get_servers()
@@ -236,17 +236,98 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
             # raise AnsibleError('Invalid gridscale API credentials.') from e
             raise AnsibleError(f"Invalid gridscale API credentials: {to_native(e)}")
 
-    def _fetch_servers(self) -> list[dict]:
-        # Configure the client to connect gridscale API.
-        self._configure_gridscale_client()
-        # Fetch servers
-        servers = list(self._servers.get("servers", {}).values())
+    def _filter_servers(self, servers: list[dict]) -> list[dict]:
         # Filter servers by location and status
         if locations := self.get_option("locations_filter"):
             servers = [s for s in servers if s["location_name"] in locations]
         if status := self.get_option("status_filter"):
             servers = [s for s in servers if s["status"] in status]
         return servers
+
+    def _fetch_servers(self) -> list[dict]:
+        # Configure the client to connect gridscale API.
+        self._configure_gridscale_client()
+        # Fetch servers
+        servers = list(self._servers.get("servers", {}).values())
+        servers = self._filter_servers(servers)
+        return servers
+
+    def _populate(self, servers: list[dict]) -> None:
+        # Add a top group
+        if main_group := self.get_option("main_group"):
+            self.inventory.add_group(group=main_group)
+
+        # Add hosts and host vars
+        hostname_template = self.get_option("hostname_template")
+        hostvars_prefix = self.get_option("hostvars_prefix")
+        hostvars_suffix = self.get_option("hostvars_suffix")
+        strict = self.get_option("strict")
+        for s in servers:
+            public_ips: list[str] = [ip["ip"] for ip in s["relations"]["public_ips"]]
+            host_vars = {
+                "uuid": s["object_uuid"],
+                "hostname": s["name"],
+                "location": s["location_name"],
+                "labels": s["labels"],
+                "status": s["status"],
+                "public_ips": public_ips,
+                "ansible_host": public_ips[0] if public_ips else s["name"],
+            }
+            if hostname_template:
+                templar = self.templar
+                templar.available_variables = combine_vars(host_vars, self._vars)
+                hostname = templar.template(hostname_template)
+                host_vars.update(
+                    {
+                        "hostname": hostname,
+                        "hostname_remote": s["name"],
+                    }
+                )
+
+            hostname = host_vars["hostname"]
+            # Update host vars with given prefix and suffix
+            if hostvars_prefix or hostvars_suffix:
+                for k in list(host_vars.keys()):
+                    if k != "ansible_host":
+                        host_vars[f"{hostvars_prefix}{k}{hostvars_suffix}"] = host_vars.pop(k)
+
+            # Add host
+            if main_group:
+                self.inventory.add_host(hostname, group=main_group)
+            else:
+                self.inventory.add_host(hostname, group="all")
+            # Add host variables
+            host_vars_filter = self.get_option("host_vars_filter")
+            for var_name, var_value in host_vars.items():
+                # if not host_vars_filter or (host_vars_filter and var_name in host_vars_filter):
+                if var_name in host_vars_filter:
+                    self.inventory.set_variable(hostname, var_name, var_value)
+
+            # Add variables created by the user's Jinja2 expressions to the host
+            self._set_composite_vars(self.get_option("compose"), host_vars, hostname, strict=strict)
+            # Create user-defined groups using variables and Jinja2 conditionals
+            self._add_host_to_composed_groups(self.get_option("groups"), host_vars, hostname, strict=strict)
+            self._add_host_to_keyed_groups(self.get_option("keyed_groups"), host_vars, hostname, strict=strict)
+
+        # Filter out all hosts that is not in any group defined in groups_filter.
+        if groups_filter := self.get_option("groups_filter"):
+            for host_name in list(self.inventory.hosts):
+                host = self.inventory.get_host(host_name)
+                delete = True
+                for group in host.groups:
+                    if group.name in groups_filter:
+                        delete = False
+                if delete is True:
+                    self.inventory.remove_host(host)
+            for group_name in list(self.inventory.groups):
+                _groups_filter = (
+                    groups_filter
+                    + ["all", "ungrouped"]
+                    + ([main_group] if main_group else [])
+                    + list(self.get_option("groups"))
+                )
+                if group_name not in _groups_filter:
+                    self.inventory.remove_group(group_name)
 
     def verify_file(self, path: str) -> bool:
         valid = False
@@ -304,77 +385,4 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
             self._cache[cache_key] = servers
 
         # Populate the inventory
-        # Add a top group
-        if main_group := self.get_option("main_group"):
-            self.inventory.add_group(group=main_group)
-
-        # Add hosts and host vars
-        hostname_template = self.get_option("hostname_template")
-        hostvars_prefix = self.get_option("hostvars_prefix")
-        hostvars_suffix = self.get_option("hostvars_suffix")
-        strict = self.get_option("strict")
-        for s in servers:
-            public_ips: list[str] = [ip["ip"] for ip in s["relations"]["public_ips"]]
-            host_vars = {
-                "uuid": s["object_uuid"],
-                "hostname": s["name"],
-                "location": s["location_name"],
-                "labels": s["labels"],
-                "status": s["status"],
-                "public_ips": public_ips,
-                "ansible_host": public_ips[0] if public_ips else s["name"],
-            }
-            if hostname_template:
-                templar = self.templar
-                templar.available_variables = combine_vars(host_vars, self._vars)
-                hostname = templar.template(hostname_template)
-                host_vars.update(
-                    {
-                        "hostname": hostname,
-                        "hostname_remote": s["name"],
-                    }
-                )
-
-            hostname = host_vars["hostname"]
-            # Update host vars with given prefix and suffix
-            if hostvars_prefix or hostvars_suffix:
-                for k in list(host_vars.keys()):
-                    if k != "ansible_host":
-                        host_vars[f"{hostvars_prefix}{k}{hostvars_suffix}"] = host_vars.pop(k)
-
-            # Add host
-            if main_group:
-                self.inventory.add_host(hostname, group=main_group)
-            else:
-                self.inventory.add_host(hostname, group="all")
-            # Add host variables
-            for var_name, var_value in host_vars.items():
-                # if not host_vars_filter or (host_vars_filter and var_name in host_vars_filter):
-                if (host_vars_filter := self.get_option("host_vars_filter")) and (var_name in host_vars_filter):
-                    self.inventory.set_variable(hostname, var_name, var_value)
-
-            # Add variables created by the user's Jinja2 expressions to the host
-            self._set_composite_vars(self.get_option("compose"), host_vars, hostname, strict=strict)
-            # Create user-defined groups using variables and Jinja2 conditionals
-            self._add_host_to_composed_groups(self.get_option("groups"), host_vars, hostname, strict=strict)
-            self._add_host_to_keyed_groups(self.get_option("keyed_groups"), host_vars, hostname, strict=strict)
-
-        # Filter out all hosts that is not in any group defined in groups_filter.
-        if groups_filter := self.get_option("groups_filter"):
-            for host_name in list(self.inventory.hosts):
-                host = self.inventory.get_host(host_name)
-                delete = True
-                for group in host.groups:
-                    if group.name in groups_filter:
-                        delete = False
-                if delete is True:
-                    self.inventory.remove_host(host)
-            for group_name in list(self.inventory.groups):
-                _groups_filter = (
-                    groups_filter
-                    + ["all", "ungrouped"]
-                    + ([main_group] if main_group else [])
-                    + list(self.get_option("groups"))
-                )
-                if group_name not in _groups_filter:
-                    self.inventory.remove_group(group_name)
+        self._populate(servers)

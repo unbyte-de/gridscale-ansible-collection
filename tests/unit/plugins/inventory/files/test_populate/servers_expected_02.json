@@ -1,0 +1,75 @@
+{
+    "groups": {
+        "all": {
+            "depth": 0,
+            "hosts": [],
+            "name": "all",
+            "parent_groups": [],
+            "vars": {}
+        },
+        "gridscale": {
+            "depth": 0,
+            "hosts": [
+                "k8s-dev-master-0",
+                "k8s-dev-node-pool0-0",
+                "k8s-dev-node-pool0-1"
+            ],
+            "name": "gridscale",
+            "parent_groups": [],
+            "vars": {}
+        },
+        "ungrouped": {
+            "depth": 1,
+            "hosts": [],
+            "name": "ungrouped",
+            "parent_groups": [
+                "all"
+            ],
+            "vars": {}
+        }
+    },
+    "hosts": {
+        "k8s-dev-master-0": {
+            "address": "k8s-dev-master-0",
+            "groups": [
+                "gridscale"
+            ],
+            "implicit": false,
+            "name": "k8s-dev-master-0",
+            "vars": {
+                "ansible_host": "185.102.11.11",
+                "inventory_dir": null,
+                "inventory_file": null,
+                "location": "de/fra"
+            }
+        },
+        "k8s-dev-node-pool0-0": {
+            "address": "k8s-dev-node-pool0-0",
+            "groups": [
+                "gridscale"
+            ],
+            "implicit": false,
+            "name": "k8s-dev-node-pool0-0",
+            "vars": {
+                "ansible_host": "185.102.11.22",
+                "inventory_dir": null,
+                "inventory_file": null,
+                "location": "de/ha"
+            }
+        },
+        "k8s-dev-node-pool0-1": {
+            "address": "k8s-dev-node-pool0-1",
+            "groups": [
+                "gridscale"
+            ],
+            "implicit": false,
+            "name": "k8s-dev-node-pool0-1",
+            "vars": {
+                "ansible_host": "185.102.11.33",
+                "inventory_dir": null,
+                "inventory_file": null,
+                "location": "de/fra"
+            }
+        }
+    }
+}

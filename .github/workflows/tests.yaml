@@ -1,5 +1,9 @@
 ---
 name: tests
+concurrency:
+  # Limit the concurrency for a specific branch.
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
 
 on:
   pull_request:
@@ -25,6 +29,24 @@ jobs:
       - name: Run sanity tests
         shell: bash
         run: |
-          pip install ansible
           cd ansible_collections/bitnik/gridscale
-          ansible-test sanity -v
+          ansible-test sanity --docker default --python 3.12
+  unit-tests:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: ansible_collections/bitnik/gridscale
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run unit tests
+        shell: bash
+        run: |
+          cd ansible_collections/bitnik/gridscale
+          ansible-test units tests/unit/ --docker default --python 3.12
