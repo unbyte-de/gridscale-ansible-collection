@@ -8,10 +8,6 @@ Currently only an inventory plugin is implemented.
 
 Documentation: https://bitnik.github.io/gridscale-ansible-collection/
 
-## Python Version Requirement
-
-This collection requires python version >= 3.12.
-
 ## Installation
 
 ```sh

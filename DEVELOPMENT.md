@@ -6,7 +6,9 @@
 
 ```sh
 # Install dependencies
-pip install -r requirements_dev.txt
+pip install pip-tools
+pip-compile --extra dev -o requirements_dev.txt pyproject.toml
+pip-sync requirements_dev.txt
 
 # Install the collection from local.
 ansible-galaxy collection install ../ --force
