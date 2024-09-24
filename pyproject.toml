@@ -1,3 +1,40 @@
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
+[project]
+name = "gridscale-ansible-collection"
+version = "0.1.0"
+dependencies = [
+]
+requires-python = ">=3.12"
+authors = [
+  {name = "bitnik", email = "kenanerdogan@gmail.com"},
+]
+maintainers = [
+  {name = "bitnik", email = "kenanerdogan@gmail.com"},
+]
+description = "An ansible collection for gridscale"
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["ansible", "collection", "gridscale"]
+classifiers = [
+  "Programming Language :: Python"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "ansible",
+    "antsibull-docs",
+    "gs_api_client",
+]
+
+[project.urls]
+Homepage = "https://bitnik.github.io/gridscale-ansible-collection/"
+Documentation = "https://bitnik.github.io/gridscale-ansible-collection/"
+Repository = "https://github.com/bitnik/gridscale-ansible-collection"
+
+[tool.setuptools]
+py-modules = []
+
 [tool.ruff]
 line-length = 120
 target-version = "py312"
