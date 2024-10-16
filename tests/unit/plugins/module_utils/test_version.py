@@ -1,5 +1,5 @@
 import pytest
-from ansible_collections.bitnik.gridscale.plugins.module_utils.version import compare_version
+from ansible_collections.unbyte.gridscale.plugins.module_utils.version import compare_version
 
 
 @pytest.mark.parametrize(

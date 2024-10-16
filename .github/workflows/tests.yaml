@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          path: ansible_collections/bitnik/gridscale
+          path: ansible_collections/unbyte/gridscale
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -29,7 +29,7 @@ jobs:
       - name: Run sanity tests
         shell: bash
         run: |
-          cd ansible_collections/bitnik/gridscale
+          cd ansible_collections/unbyte/gridscale
           ansible-test sanity --docker default --python 3.12
   unit-tests:
     name: Run unit tests
@@ -40,7 +40,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          path: ansible_collections/bitnik/gridscale
+          path: ansible_collections/unbyte/gridscale
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -48,5 +48,5 @@ jobs:
       - name: Run unit tests
         shell: bash
         run: |
-          cd ansible_collections/bitnik/gridscale
+          cd ansible_collections/unbyte/gridscale
           ansible-test units tests/unit/ --docker default --python 3.12
