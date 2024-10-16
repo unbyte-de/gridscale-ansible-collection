@@ -24,7 +24,7 @@ ansible==10.4.0
     # via gridscale-ansible-collection (pyproject.toml)
 ansible-core==2.17.4
     # via ansible
-ansible-pygments==0.1.1
+ansible-pygments==0.1.2
     # via antsibull-docs
 antsibull-changelog==0.30.0
     # via antsibull-docs
