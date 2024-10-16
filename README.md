@@ -11,12 +11,12 @@ Documentation: https://unbyte-GmbH.github.io/gridscale-ansible-collection/
 ## Installation
 
 ```sh
-ansible-galaxy collection install git+https://github.com/unbyte-GmbH/gridscale-ansible-collection.git,0.1.0
+ansible-galaxy collection install git+https://github.com/unbyte-GmbH/gridscale-ansible-collection.git,0.1.1
 ```
 
 ```sh
 collections:
   - name: https://github.com/unbyte-GmbH/gridscale-ansible-collection.git
     type: git
-    version: 0.1.0
+    version: 0.1.1
 ```
