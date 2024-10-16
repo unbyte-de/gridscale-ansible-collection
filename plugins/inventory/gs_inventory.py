@@ -25,7 +25,7 @@ options:
   plugin:
     description: gridscale inventory plugin name.
     required: true
-    choices: [gs_inventory, bitnik.gridscale.gs_inventory]
+    choices: [gs_inventory, unbyte.gridscale.gs_inventory]
   api_token:
     description: |
       The token for gridscale API.
@@ -94,10 +94,10 @@ options:
 
 EXAMPLES = """
 # 'GRIDSCALE_API_TOKEN' and 'GRIDSCALE_USER_UUID' set as env vars
-plugin: bitnik.gridscale.gs_inventory
+plugin: unbyte.gridscale.gs_inventory
 
 ---
-plugin: bitnik.gridscale.gs_inventory
+plugin: unbyte.gridscale.gs_inventory
 api_token: "{{ _vault_gridscale_api_token }}"
 user_uuid: "{{ _vault_gridscale_user_uuid }}"
 
@@ -110,7 +110,7 @@ status_filter:
 - "active"
 
 ---
-plugin: bitnik.gridscale.gs_inventory
+plugin: unbyte.gridscale.gs_inventory
 
 # Generate groups based on hostname
 groups:
@@ -134,7 +134,7 @@ host_vars_filter:
   - location
 
 ---
-plugin: bitnik.gridscale.gs_inventory
+plugin: unbyte.gridscale.gs_inventory
 
 # Generate groups based on hostname
 groups:
@@ -146,7 +146,7 @@ groups_filter:
 - "cp"
 
 ---
-plugin: bitnik.gridscale.gs_inventory
+plugin: unbyte.gridscale.gs_inventory
 
 main_group: gridscale
 
@@ -188,7 +188,7 @@ except ImportError as e:
 
 
 class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
-    NAME = "bitnik.gridscale.gs_inventory"
+    NAME = "unbyte.gridscale.gs_inventory"
 
     def __init__(self):
         super().__init__()

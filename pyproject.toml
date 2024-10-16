@@ -1,7 +1,7 @@
 # https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
 [project]
 name = "gridscale-ansible-collection"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
 ]
 requires-python = ">=3.12"
@@ -28,9 +28,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://bitnik.github.io/gridscale-ansible-collection/"
-Documentation = "https://bitnik.github.io/gridscale-ansible-collection/"
-Repository = "https://github.com/bitnik/gridscale-ansible-collection"
+Homepage = "https://unbyte-GmbH.github.io/gridscale-ansible-collection/"
+Documentation = "https://unbyte-GmbH.github.io/gridscale-ansible-collection/"
+Repository = "https://github.com/unbyte-GmbH/gridscale-ansible-collection"
 
 [tool.setuptools]
 py-modules = []

@@ -18,7 +18,7 @@ ansible-inventory -i gs_inventory.yaml --list --yaml
 # ansible-inventory -i gs_inventory.yaml --graph --vars
 
 # View the inventory docu in terminal
-ansible-doc -t inventory bitnik.gridscale.gs_inventory
+ansible-doc -t inventory unbyte.gridscale.gs_inventory
 ```
 
 ## Linting
@@ -52,7 +52,7 @@ mkdir built-docs
 ansible-galaxy collection install ../ --force
 
 # Create a Sphinx project for the collection:
-antsibull-docs sphinx-init --use-current --squash-hierarchy bitnik.gridscale --dest-dir built-docs
+antsibull-docs sphinx-init --use-current --squash-hierarchy unbyte.gridscale --dest-dir built-docs
 
 # Copy conf files
 cp .github/workflows/docs/conf.py built-docs/

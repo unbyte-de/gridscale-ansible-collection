@@ -5,7 +5,7 @@ import pytest
 from ansible.inventory.data import InventoryData
 from ansible.parsing.dataloader import DataLoader
 from ansible.template import Templar
-from ansible_collections.bitnik.gridscale.plugins.inventory.gs_inventory import InventoryModule
+from ansible_collections.unbyte.gridscale.plugins.inventory.gs_inventory import InventoryModule
 
 
 @pytest.fixture(scope="module")

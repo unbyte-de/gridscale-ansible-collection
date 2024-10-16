@@ -8,11 +8,11 @@
 # documentation:
 # http://www.sphinx-doc.org/en/master/config
 
-project = "Bitnik.Gridscale Collection"
-copyright = "Bitnik.Gridscale contributors"
+project = "unbyte.gridscale Collection"
+copyright = "unbyte.gridscale contributors"
 
-title = "Bitnik.Gridscale Collection Documentation"
-html_short_title = "Bitnik.Gridscale Collection Documentation"
+title = "unbyte.gridscale Collection Documentation"
+html_short_title = "unbyte.gridscale Collection Documentation"
 
 extensions = ["sphinx.ext.autodoc", "sphinx.ext.intersphinx", "sphinx_antsibull_ext"]
 
@@ -24,7 +24,7 @@ highlight_language = "YAML+Jinja"
 # https://github.com/ansible-community/sphinx_ansible_theme/blob/main/docs/conf.py
 html_theme = "sphinx_ansible_theme"
 html_theme_options = {
-    "documentation_home_url": "https://bitnik.github.io/gridscale-ansible-collection/",
+    "documentation_home_url": "https://unbyte-GmbH.github.io/gridscale-ansible-collection/",
     "topbar_links": {},
 }
 html_show_sphinx = False
