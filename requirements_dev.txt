@@ -24,7 +24,7 @@ ansible==10.4.0
     # via gridscale-ansible-collection (pyproject.toml)
 ansible-core==2.17.4
     # via ansible
-ansible-pygments==0.1.2
+ansible-pygments==0.1.3
     # via antsibull-docs
 antsibull-changelog==0.30.0
     # via antsibull-docs
@@ -97,7 +97,7 @@ markdown-it-py==3.0.0
     # via rich
 markupsafe==2.1.5
     # via jinja2
-mdurl==0.1.2
+mdurl==0.1.3
     # via markdown-it-py
 multidict==6.1.0
     # via
