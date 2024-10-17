@@ -28,9 +28,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://unbyte-GmbH.github.io/gridscale-ansible-collection/"
-Documentation = "https://unbyte-GmbH.github.io/gridscale-ansible-collection/"
-Repository = "https://github.com/unbyte-GmbH/gridscale-ansible-collection"
+Homepage = "https://unbyte-de.github.io/gridscale-ansible-collection/"
+Documentation = "https://unbyte-de.github.io/gridscale-ansible-collection/"
+Repository = "https://github.com/unbyte-de/gridscale-ansible-collection"
 
 [tool.setuptools]
 py-modules = []
